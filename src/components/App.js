@@ -33,7 +33,7 @@ function App() {
   }
 
   return (
-    <>
+    
     <div className="mesto">
       <div className="page">
         <Header />
@@ -148,7 +148,7 @@ function App() {
         card={selectedCard} 
         onClose={closeAllPopups} />
         </div>
-    </>
+    
   );
 }
 

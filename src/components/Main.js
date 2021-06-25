@@ -9,8 +9,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     api.getUserInfo().then((userData) => {
       setUserName(userData.name);
       setUserAvatar(userData.avatar)
-      setUserDescription(userData.about);
-    });
+      setUserDescription(userData.about)
+    })
+    .catch(console.log("Упс, похоже, возникла ошибка."))
 
     api.getInitialCards().then(cardList => {
       setCards(cardList);
@@ -48,9 +49,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       </section>
 
       
-        <ul className="grid">
+        <div className="grid">
           {cards.map((card) => <Card  card={card} key={card._id}  onCardClick={onCardClick} />)}
-        </ul>
+        </div>
     </main>
     
   );
