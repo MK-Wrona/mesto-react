@@ -1,9 +1,9 @@
 import React from 'react';
+import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
-import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -34,6 +34,7 @@ function App() {
 
   return (
     <>
+    <div className="mesto">
       <div className="page">
         <Header />
         <Main 
@@ -45,12 +46,13 @@ function App() {
       </div>
 
       <PopupWithForm 
-        name="edit"
         title="Редактировать профиль"
+        name="edit"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}>
-          <input 
-            minLength="2" 
+          {/*для читаемости отформатировано в столбик*/}
+          <div className="pop-up__input-box">
+          <input minLength="2" 
             maxLength="40" 
             type="text" 
             className="pop-up__input pop-up__input_name_name" 
@@ -62,6 +64,8 @@ function App() {
           <span 
             className='pop-up__form-error pop-up__form-error_active' 
             id='input-name-error' />
+            </div>
+            <div className="pop-up__input-box">
           <input 
             minLength="2" 
             maxLength="200" 
@@ -74,7 +78,7 @@ function App() {
             required />
           <span 
             className='pop-up__form-error pop-up__form-error_active' 
-            id='input-prof-error' />
+            id='input-prof-error' /></div>
           <input 
             type="submit" 
             className="pop-up__submit-button" 
@@ -82,10 +86,11 @@ function App() {
             name="submit" />
         </PopupWithForm>
       <PopupWithForm 
-        name="add"
         title="Новое место"
+        name="add"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}>
+          <div className="pop-up__input-box">
           <input 
             minLength="1" 
             maxLength="30" 
@@ -97,7 +102,9 @@ function App() {
             required />
           <span 
             className='pop-up__form-error' 
-            id='input-title-error'>Вы пропустили это поле.</span>
+            id='input-title-error'></span>
+            </div>
+            <div className="pop-up__input-box">
           <input 
             type="url" 
             placeholder="Ссылка на картинку" 
@@ -107,7 +114,8 @@ function App() {
             required />
           <span 
             className='pop-up__form-error' 
-            id='input-link-error'>Вы пропустили это поле.</span>
+            id='input-link-error'></span>
+            </div>
           <input 
             type="submit" 
             className="pop-up__submit-button" 
@@ -115,8 +123,8 @@ function App() {
             name="submit" />
         </PopupWithForm>
       <PopupWithForm 
-        name="avatar"
         title="Обновить аватар"
+        name="avatar"
         children=""
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}>
@@ -129,7 +137,7 @@ function App() {
             required />
           <span 
             className='pop-up__form-error' 
-            id='link-input-avatar-error'>Заполните это поле.</span>
+            id='link-input-avatar-error'></span>
           <input 
             type="submit" 
             className="pop-up__submit-button" 
@@ -139,6 +147,7 @@ function App() {
       <ImagePopup 
         card={selectedCard} 
         onClose={closeAllPopups} />
+        </div>
     </>
   );
 }

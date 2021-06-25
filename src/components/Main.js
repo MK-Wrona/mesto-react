@@ -1,37 +1,40 @@
 import React from 'react';
 import Card from './Card';
 import editAvatarImage from '../images/editAvatarImage.svg';
-import Api from '../utiles/Api.js';
+import api from '../utiles/Api.js';
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
   React.useEffect(() => {
-    Api.getUserInfo().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar)
+    api.getUserInfo().then((userData) => {
+      setUserName(userData.name);
+      setUserAvatar(userData.avatar)
+      setUserDescription(userData.about);
     });
 
-    Api.getInitialCards().then(cardList => {
+    api.getInitialCards().then(cardList => {
       setCards(cardList);
     })
   }, []);
+   /* {хук для карточек} */
+   const [cards, setCards] = React.useState([]);
 
-  /* {Данные пользователя} */
+  /* {данные юзера} */
+  const [userAvatar, setUserAvatar] = React.useState();
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+ 
 
-    /* {Карточки} */
-  const [cards, setCards] = React.useState([]);
+   
 
   return (
     <main className="main">
       <section className="profile">
           <div className="profile__info">
             <div className="profile__icon-container">
-              <img src={`${userAvatar}`} alt="Фото Профиля" className="profile__icon" />
-              <img src={editAvatarImage} alt="Иконка карандаша" className="profile__icon-edit" onClick={onEditAvatar}/>
+              {/*onEditAvatar и для авы и для иконки карандаша, чтобы модалка вызывалась в любом случае */}
+              <img src={`${userAvatar}`} alt="Фото Профиля" className="profile__icon" onClick={onEditAvatar}/>
+              <img src={editAvatarImage} alt="Иконка карандаша" className="profile__icon-edit" onClick={onEditAvatar} />
             </div>
             <div className="profile__wrap-text">
               <div className="profile__wrap">
@@ -46,7 +49,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
       
         <ul className="grid">
-          {cards.map((card) => <Card  key={card._id} card={card} onCardClick={onCardClick} />)}
+          {cards.map((card) => <Card  card={card} key={card._id}  onCardClick={onCardClick} />)}
         </ul>
     </main>
     

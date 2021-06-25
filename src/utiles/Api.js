@@ -1,8 +1,10 @@
-export default class Api {
+class Api {
+    
     constructor({ adress, headers }) {
             this._adress = adress;
             this._headers = headers;
         }
+        
         // возьми сет карточек сервака
     getInitialCards() {
             return fetch(`${this._adress}/cards`, { headers: this._headers })
@@ -93,3 +95,13 @@ export default class Api {
     }
 
 }
+
+let api = new Api({
+    adress: 'https://mesto.nomoreparties.co/v1/cohort-24',
+    headers: {
+        authorization: 'bc8d3de0-e753-4646-a5ba-26caab7d3e1d',
+        'Content-Type': 'application/json'
+    }
+});
+export default api;
+
