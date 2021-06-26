@@ -14,8 +14,10 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .catch(console.log("Упс, похоже, возникла ошибка."))
 
     api.getInitialCards().then(cardList => {
-      setCards(cardList);
+      setCards(cardList)
     })
+    .catch(console.log("Упс, похоже, возникла ошибка."))
+    
   }, []);
    /* {хук для карточек} */
    const [cards, setCards] = React.useState([]);
