@@ -9,7 +9,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});{/*загружала работу дважды, т.к. первый раз забыла добавить объект,возможно, Вы проверили первый вариант, или я неверно поняла замечание*/}
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -29,7 +29,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({});
   }
 
   return (
