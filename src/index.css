@@ -48,3 +48,4 @@
 @import url(./blocks/profile/__icon-edit/profile__icon-edit.css);
 @import url(./blocks/pop-up/__input-box/pop-up__input-box-avatar.css);
 @import url(./blocks/pop-up/__form-error/pop-up__form-error-avatar.css);
+@import url(./blocks/grid/__delete/_hidden/grid__delete_hidden.css);
