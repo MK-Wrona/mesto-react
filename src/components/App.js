@@ -17,10 +17,10 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});/*пустой объект (null) для правильного объявления*/
   /*добавили стейт контекста*/
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState({});
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }, []);
 
   /*обработчики кликов*/
@@ -50,7 +50,7 @@ function App() {
       setCurrentUser(updatedUser);
       setIsEditAvatarPopupOpen(false);
     })
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }
 
   function handleUpdateUser({name, about}) {
@@ -62,14 +62,14 @@ function App() {
         setCurrentUser({ ...updatedUser });
       setIsEditProfilePopupOpen(false);
     })
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }
 
   React.useEffect(() => {
     api.getInitialCards().then(cardList => {
       setCards(cardList);
     })
-    .catch(error => api.errorHandler(error))
+    .catch(error => api._errorHandler(error))
   }, []);
 
   const [cards, setCards] = React.useState([]);
@@ -80,12 +80,10 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     const changeLike = isLiked ? api.unlikeCard(card._id) : api.likeCard(card._id)
     changeLike.then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      // Обновляем стейт
-      setCards(newCards);
+      // Обновляем стейт на основе предшествующего колбэка
+      setCards((newCards) => newCards.map((c) => c._id === card._id ? newCard : c));
     })
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }
 
   function handleCardDelete(card) {
@@ -93,7 +91,7 @@ function App() {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
     })
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }
 
   /*(функц в апишке)*/
@@ -102,7 +100,7 @@ function App() {
       setCards([card, ...cards]);
       setIsAddPlacePopupOpen(false);
     })
-    .catch(error => api.errorHandler(error));
+    .catch(error => api._errorHandler(error));
   }
 
   return (
@@ -110,7 +108,7 @@ function App() {
     <div className="mesto">
       <div className="page">
         <Header />
-        {currentUser &&
+        
         <Main 
           onEditProfile={handleEditProfileClick} 
           onAddPlace={handleAddPlaceClick} 
@@ -119,17 +117,17 @@ function App() {
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
-          /> }
+          /> 
         <Footer />
       </div>
           {/*для читаемости отформатировано в столбик*/}
-          {currentUser &&
+          
         <EditProfilePopup 
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}
           /> 
-      }
+      
         <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}

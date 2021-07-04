@@ -14,6 +14,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     onUpdateUser({
       name,
       about: description,
@@ -36,10 +37,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
             className="pop-up__input pop-up__input_name_name" 
             name="name" 
             id="input-name" 
-            placeholder="Nobara" 
-            defaultValue="Nobara" 
+            placeholder="Имя" 
+            value={name || ""} 
             required 
-            onChange={(evt) => setName(evt.target.value)}requiredvalue={name}
+            onChange={(evt) => setName(evt.target.value)}
             />
           <span 
             className='pop-up__form-error pop-up__form-error_active' 
@@ -52,10 +53,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
             type="text" 
             className="pop-up__input pop-up__input_name_prof" 
             name="prof" 
-            placeholder="Station Observer" 
+            placeholder="Хобби или занятие" 
             id="profession-input" 
-            defaultValue="Station Observer" 
-            onChange={(evt) => setDescription(evt.target.value)}requiredvalue={description}
+            value={description || ""}  
+            onChange={(evt) => setDescription(evt.target.value)}
             required />
           <span 
             className='pop-up__form-error pop-up__form-error_active' 

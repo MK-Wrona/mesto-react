@@ -7,12 +7,6 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
   /*{прдписка для функционального компонента}*/
   const currentUser = React.useContext(CurrentUserContext);
 
-  /* {
-  const [userAvatar, setUserAvatar] = React.useState();
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  } */
-
   return (
     <main className="main">
       <section className="profile">
