@@ -33,9 +33,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
           <button type="button" className="profile__add-button" onClick={onAddPlace} />
       </section>
 
-      
         <div className="grid">
-          {cards.map((card) => <Card  card={card} key={card._id}  onCardClick={onCardClick} />)}
+          {/*передаем пропсы*/}
+          {cards.map((card) => <Card  card={card} key={card._id}  onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>)}
         </div>
     </main>
     

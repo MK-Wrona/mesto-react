@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
@@ -14,16 +14,15 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState({});/*пустой объект (null) для правильного объявления*/
   /*добавили стейт контекста*/
   const [currentUser, setCurrentUser] = React.useState();
- 
-  
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
     .catch(error => api.errorHandler(error));
   }, []);
 
+  /*обработчики кликов*/
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -33,16 +32,24 @@ function App() {
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
-
   function handleCardClick(card) {
     setSelectedCard(card);
   }
 
   function closeAllPopups() {
+    setSelectedCard({});
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard({});
+    
+  }
+
+  function handleUpdateAvatar({avatar}) {
+    api.editUserAvatar(avatar).then((updatedUser) => {
+      setCurrentUser(updatedUser);
+      setIsEditAvatarPopupOpen(false);
+    })
+    .catch(error => api.errorHandler(error));
   }
 
   function handleUpdateUser({name, about}) {
@@ -53,14 +60,6 @@ function App() {
 
         setCurrentUser({ ...updatedUser });
       setIsEditProfilePopupOpen(false);
-    })
-    .catch(error => api.errorHandler(error));
-  }
-
-  function handleUpdateAvatar({avatar}) {
-    api.editUserAvatar(avatar).then((updatedUser) => {
-      setCurrentUser(updatedUser);
-      setIsEditAvatarPopupOpen(false);
     })
     .catch(error => api.errorHandler(error));
   }
@@ -96,8 +95,9 @@ function App() {
     .catch(error => api.errorHandler(error));
   }
 
+  /*(функц в апишке)*/
   function handleAddPlaceSubmit({name, link}) {
-    api.addCard(name, link).then((card) => {
+    api.plusCard(name, link).then((card) => {
       setCards([card, ...cards]);
       setIsAddPlacePopupOpen(false);
     })
