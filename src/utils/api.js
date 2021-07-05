@@ -12,7 +12,7 @@ class Api {
 
         }
         // если что-то не так (все)
-    _errorHandler(error) {
+    errorHandler(error) {
         console.log(error);
     }
     _checkRequestResult(response) {

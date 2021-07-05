@@ -20,7 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }, []);
 
   /*обработчики кликов*/
@@ -50,7 +50,7 @@ function App() {
       setCurrentUser(updatedUser);
       setIsEditAvatarPopupOpen(false);
     })
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }
 
   function handleUpdateUser({name, about}) {
@@ -62,14 +62,14 @@ function App() {
         setCurrentUser({ ...updatedUser });
       setIsEditProfilePopupOpen(false);
     })
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }
 
   React.useEffect(() => {
     api.getInitialCards().then(cardList => {
       setCards(cardList);
     })
-    .catch(error => api._errorHandler(error))
+    .catch(error => api.errorHandler(error))
   }, []);
 
   const [cards, setCards] = React.useState([]);
@@ -83,7 +83,7 @@ function App() {
       // Обновляем стейт на основе предшествующего колбэка
       setCards((newCards) => newCards.map((c) => c._id === card._id ? newCard : c));
     })
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }
 
   function handleCardDelete(card) {
@@ -91,7 +91,7 @@ function App() {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
     })
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }
 
   /*(функц в апишке)*/
@@ -100,7 +100,7 @@ function App() {
       setCards([card, ...cards]);
       setIsAddPlacePopupOpen(false);
     })
-    .catch(error => api._errorHandler(error));
+    .catch(error => api.errorHandler(error));
   }
 
   return (
