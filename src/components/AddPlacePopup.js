@@ -2,11 +2,13 @@ import PopupWithForm from './PopupWithForm';
 import React from 'react';
 
 function AddPlacePopup({isOpen, onClose, onAddPlace}) {
-  const nameInput = React.useRef();
   const linkInput = React.useRef();
+  const nameInput = React.useRef();
+  
 
   function handleSubmit(e) {
     e.preventDefault();
+
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onAddPlace({
@@ -14,11 +16,11 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
       link: linkInput.current.value
     });
   }
-
+//-----------------------------------------------------------------------------
   return (
     <PopupWithForm 
-        title="Новое место"
         name="add"
+        title="Новое место"
         isOpen={isOpen}
         onClose={onClose}
         handleSubmit={handleSubmit}
